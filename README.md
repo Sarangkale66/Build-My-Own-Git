@@ -68,7 +68,7 @@ More commands coming soon!
 ```sh
 # Clone the repository
 git clone https://github.com/Sarangkale66/BuildMyOwnGit
-cd git
+cd git-cli
 
 # Install dependencies
 bun install
