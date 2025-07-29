@@ -1,11 +1,6 @@
 export * from "./cat-file";
 export * from "./hash-object"
-
-export enum Commands {
-  Init = "init",
-  CatFile = "cat-file",
-  HashObject = "hash-object"
-}
+export * from "./ls-tree";
 
 export const NULL_BYTE = "\0";
 

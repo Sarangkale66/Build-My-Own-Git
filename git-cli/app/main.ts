@@ -1,6 +1,6 @@
 import * as fs from 'fs';
-import { GitClient } from "./git"
-import { CatFileCommand, Commands, HashObjectCommand } from './git/commands';
+import { GitClient, Commands } from "./git"
+import { CatFileCommand, HashObjectCommand, LsTreeCommand } from './git/commands';
 import path from 'path';
 
 const args = process.argv.slice(2);
@@ -19,10 +19,13 @@ if (!fs.existsSync(path.join(process.cwd(), ".git"))) {
 
 switch (command) {
     case Commands.CatFile:
-        gitClient.run(new CatFileCommand(process.argv[3], process.argv[4]));
+        gitClient.run(new CatFileCommand(args[1], args[2]));
         break;
     case Commands.HashObject:
-        gitClient.hash(new HashObjectCommand(process.argv[3], process.argv[4]));
+        gitClient.hash(new HashObjectCommand(args[1], args[2]));
+        break;
+    case Commands.LsTree:
+        gitClient.readTree(new LsTreeCommand(args[1], args[2]));
         break;
     default:
         process.stdout.write(`Unknown command ${command}`);

@@ -21,7 +21,7 @@ export class CatFileCommand implements CatFileCommandIntern {
     const commitSHA = this.commitSHA;
 
     switch (flag) {
-      case "-p": {
+      case "-p":
         const folder = commitSHA.slice(0, 2);
         const file = commitSHA.slice(2);
         const objectPath = path.join(process.cwd(), ".git", "objects", folder, file);
@@ -41,8 +41,6 @@ export class CatFileCommand implements CatFileCommandIntern {
         const blobContent = decompressed.subarray(nullIndex + 1).toString();
         print(blobContent);
         break;
-      }
-
       default:
         exit(new Error(`Unknown flag ${flag}`));
     }

@@ -1,10 +1,18 @@
-import type { Commands } from "./commands";
-import { type CatFileCommandIntern } from "./commands/cat-file"
+import type { CatFileCommandIntern, HashObjectCommandIntern, LsTreeCommandIntern } from "./commands"
 import fs from "fs";
-import type { HashObjectCommand, HashObjectCommandIntern } from "./commands/hash-object";
+
+export enum Commands {
+  Init = "init",
+  CatFile = "cat-file",
+  HashObject = "hash-object",
+  LsTree = "ls-tree",
+}
 
 interface GitClientIntern {
+  init: () => void;
   run: (command: CatFileCommandIntern) => void;
+  hash: (command: HashObjectCommandIntern) => void;
+  readTree: (command: LsTreeCommandIntern) => void;
 }
 
 export class GitClient implements GitClientIntern {
@@ -22,6 +30,10 @@ export class GitClient implements GitClientIntern {
   }
 
   hash(command: HashObjectCommandIntern): void {
+    command.execute();
+  }
+
+  readTree(command: LsTreeCommandIntern): void {
     command.execute();
   }
 }
