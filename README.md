@@ -72,3 +72,8 @@ cd git-cli
 
 # Install dependencies
 bun install
+
+# Appy these syntax to execute code
+bun run /app/main.ts init
+bun run /app/main.ts cat-file -p <hash>
+bun run /app/main.ts hash-object -w <fileName>
