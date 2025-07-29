@@ -31,31 +31,56 @@ export class LsTreeCommand implements LsTreeCommandIntern {
 
     const folder = treeSha.slice(0, 2);
     const file = treeSha.slice(2);
+    const filePath = path.join(".git", "objects", folder, file);
 
-    const folderPath = path.join(".git", "objects", folder);
-    const fullPath = path.join(folderPath, file);
-
-    if (!fs.existsSync(folderPath)) {
+    if (!fs.existsSync(filePath)) {
       exit(new Error(`Not a valid object name ${treeSha}`));
     }
 
-    if (!fs.existsSync(fullPath)) {
-      exit(new Error(`Not a valid object name ${treeSha}`));
+    const compressed = fs.readFileSync(filePath);
+    const uncompressed = zlib.inflateSync(compressed as any);
+
+    const nullByteIdx = uncompressed.indexOf(0);
+    if (nullByteIdx === -1) {
+      exit(new Error("Invalid tree object"));
     }
 
-    const fileContent = fs.readFileSync(fullPath);
-    const outputBuffer = zlib.unzipSync(new Uint8Array(fileContent));
-    const output = outputBuffer.toString().split(NULL_BYTE);
+    let offset = nullByteIdx + 1;
 
-    if (output.length < 2) {
-      exit(new Error(`Invalid object format for ${treeSha}`));
+    while (offset < uncompressed.length) {
+      const spaceIdx = uncompressed.indexOf(32, offset);
+      const mode = uncompressed.subarray(offset, spaceIdx).toString();
+      offset = spaceIdx + 1;
+
+      const nullIdx = uncompressed.indexOf(0, offset);
+      const filename = uncompressed.subarray(offset, nullIdx).toString();
+      offset = nullIdx + 1;
+
+      const shaBuffer = uncompressed.subarray(offset, offset + 20);
+      const shaHex = Buffer.from(shaBuffer as any).toString("hex");
+      offset += 20;
+
+      if (flag === "--name-only") {
+        print(filename);
+      } else {
+        const type = this.getObjectType(shaHex);
+        print(`${mode} ${type} ${shaHex}\t${filename}`);
+      }
     }
-
-    const treeContent = output.slice(1).filter(e => e.includes(" "));
-    const name = treeContent.map(e => e.split(" ")[1]);
-
-    name.forEach(item => {
-      if (!item.includes("100644")) print(item);
-    });
   }
+
+  private getObjectType(sha: string): string {
+    const folder = sha.slice(0, 2);
+    const file = sha.slice(2);
+    const filePath = path.join(".git", "objects", folder, file);
+
+    if (!fs.existsSync(filePath)) return "unknown";
+
+    const compressed = fs.readFileSync(filePath);
+    const uncompressed = zlib.inflateSync(compressed as any);
+    const header = uncompressed.subarray(0, uncompressed.indexOf(0)).toString();
+    const [type] = header.split(" ");
+    return type;
+  }
+
 }
