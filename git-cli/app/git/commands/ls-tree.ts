@@ -1,10 +1,10 @@
 import fs from "fs";
-import { NULL_BYTE, exit, print } from ".";
 import path from "path";
 import zlib from "zlib";
+import { exit, print } from ".";
 
 export interface LsTreeCommandIntern {
-  execute: () => void | Promise<void>;
+  execute: () => void;
 }
 
 export class LsTreeCommand implements LsTreeCommandIntern {
@@ -18,53 +18,83 @@ export class LsTreeCommand implements LsTreeCommandIntern {
 
   public execute(): void {
     let flag = this.flag;
-    let treeSha = this.sha;
+    let inputSha = this.sha;
 
-    if (!treeSha && flag === "--name-only") {
+    if (!inputSha && flag === "--name-only") {
       exit(new Error("Tree SHA is required"));
     }
 
-    if (!treeSha) {
-      treeSha = flag;
+    if (!inputSha) {
+      inputSha = flag;
       flag = "";
     }
 
-    const folder = treeSha.slice(0, 2);
-    const file = treeSha.slice(2);
+    // Load the initial object
+    const folder = inputSha.slice(0, 2);
+    const file = inputSha.slice(2);
     const filePath = path.join(".git", "objects", folder, file);
 
     if (!fs.existsSync(filePath)) {
-      exit(new Error(`Not a valid object name ${treeSha}`));
+      exit(new Error(`Not a valid object name ${inputSha}`));
     }
 
     const compressed = fs.readFileSync(filePath);
     const uncompressed = zlib.inflateSync(compressed as any);
-
     const nullByteIdx = uncompressed.indexOf(0);
     if (nullByteIdx === -1) {
+      exit(new Error("Invalid object format"));
+    }
+
+    const header = uncompressed.subarray(0, nullByteIdx).toString();
+    const [type] = header.split(" ");
+
+    let treeSha = inputSha;
+    let treeBuffer = uncompressed;
+
+    if (type === "commit") {
+      const commitContent = uncompressed.subarray(nullByteIdx + 1).toString();
+      const treeLine = commitContent.split("\n").find(line => line.startsWith("tree "));
+      if (!treeLine) exit(new Error("No tree found in commit object"));
+      treeSha = treeLine.split(" ")[1];
+
+      const treeFolder = treeSha.slice(0, 2);
+      const treeFile = treeSha.slice(2);
+      const treePath = path.join(".git", "objects", treeFolder, treeFile);
+
+      if (!fs.existsSync(treePath)) {
+        exit(new Error(`Tree object ${treeSha} not found`));
+      }
+
+      const treeCompressed = fs.readFileSync(treePath);
+      treeBuffer = zlib.inflateSync(treeCompressed as any);
+    }
+
+    // Now parse the tree object
+    const treeNullIdx = treeBuffer.indexOf(0);
+    if (treeNullIdx === -1) {
       exit(new Error("Invalid tree object"));
     }
 
-    let offset = nullByteIdx + 1;
+    let offset = treeNullIdx + 1;
 
-    while (offset < uncompressed.length) {
-      const spaceIdx = uncompressed.indexOf(32, offset);
-      const mode = uncompressed.subarray(offset, spaceIdx).toString();
+    while (offset < treeBuffer.length) {
+      const spaceIdx = treeBuffer.indexOf(32, offset);
+      const mode = treeBuffer.subarray(offset, spaceIdx).toString();
       offset = spaceIdx + 1;
 
-      const nullIdx = uncompressed.indexOf(0, offset);
-      const filename = uncompressed.subarray(offset, nullIdx).toString();
+      const nullIdx = treeBuffer.indexOf(0, offset);
+      const filename = treeBuffer.subarray(offset, nullIdx).toString();
       offset = nullIdx + 1;
 
-      const shaBuffer = uncompressed.subarray(offset, offset + 20);
+      const shaBuffer = treeBuffer.subarray(offset, offset + 20);
       const shaHex = Buffer.from(shaBuffer as any).toString("hex");
       offset += 20;
 
       if (flag === "--name-only") {
         print(filename);
       } else {
-        const type = this.getObjectType(shaHex);
-        print(`${mode} ${type} ${shaHex}\t${filename}`);
+        const entryType = this.getObjectType(shaHex);
+        print(`${mode} ${entryType} ${shaHex}\t${filename}`);
       }
     }
   }
@@ -82,5 +112,4 @@ export class LsTreeCommand implements LsTreeCommandIntern {
     const [type] = header.split(" ");
     return type;
   }
-
 }
