@@ -33,10 +33,10 @@ _Learn Git Internals by Building Your Own Git from Scratch_
 
 ✅ `git init` – Initializes a `.git/` directory  
 ✅ `git hash-object -w <file>` – Hashes and stores the file content as a blob  
-✅ `git cat-file -p <hash>` – Reads and decompresses Git object contents
-✅ `git ls-tree <Tree hash or Commit hash> -or- git ls-tree --name-only <Tree hash or Commit hash>` – Reads a entire tree and blobs
-✅ `git update-index filepath` – update a stage of the entire initialize directory
-✅ `git write-tree` – update entire tree or blob inside the directory recursively
+✅ `git cat-file -p <hash>` – Reads and decompresses Git object contents <br>
+✅ `git ls-tree <Tree hash or Commit hash> -or- git ls-tree --name-only <Tree hash or Commit hash>` – Reads a entire tree and blobs <br>
+✅ `git update-index filepath` – Update a stage of the entire initialize directory <br>
+✅ `git write-tree` – Update entire tree or blob inside the directory recursively <br>
 
 More commands coming soon!
 
