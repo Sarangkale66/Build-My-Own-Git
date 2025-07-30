@@ -1,6 +1,8 @@
 export * from "./cat-file";
 export * from "./hash-object"
 export * from "./ls-tree";
+export * from "./update-index";
+export * from "./write-tree";
 
 export const NULL_BYTE = "\0";
 

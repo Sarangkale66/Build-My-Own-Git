@@ -1,6 +1,5 @@
 import path from "path";
 import fs from "fs";
-import crypto from "crypto";
 import zlib from "zlib";
 import { exit, NULL_BYTE } from ".";
 
@@ -9,15 +8,15 @@ export interface HashObjectCommandIntern {
 }
 
 export class HashObjectCommand implements HashObjectCommandIntern {
-  public flag: string;
-  public filepath: string;
+  private readonly flag: string;
+  private readonly filepath: string;
 
   constructor(flag: string, filepath: string) {
     this.flag = flag;
     this.filepath = filepath;
   }
 
-  async execute() {
+  async execute(): Promise<void> {
     const flag = this.flag;
     const filepath = path.resolve(this.filepath);
     const dotGitPath = process.cwd();

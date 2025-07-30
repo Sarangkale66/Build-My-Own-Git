@@ -8,8 +8,8 @@ export interface CatFileCommandIntern {
 }
 
 export class CatFileCommand implements CatFileCommandIntern {
-  public flag: string;
-  public commitSHA: string;
+  private readonly flag: string;
+  private readonly commitSHA: string;
 
   constructor(flag: string = "", commitSHA: string = "") {
     this.flag = flag;

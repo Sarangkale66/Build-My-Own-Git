@@ -8,8 +8,8 @@ export interface LsTreeCommandIntern {
 }
 
 export class LsTreeCommand implements LsTreeCommandIntern {
-  public readonly flag: string;
-  public readonly sha: string;
+  private readonly flag: string;
+  private readonly sha: string;
 
   constructor(flag: string, sha: string) {
     this.flag = flag;
@@ -37,14 +37,19 @@ export class LsTreeCommand implements LsTreeCommandIntern {
     if (!fs.existsSync(filePath)) {
       exit(new Error(`Not a valid object name ${inputSha}`));
     }
-
+    // read file compress data
     const compressed = fs.readFileSync(filePath);
+    // decommpress data
     const uncompressed = zlib.inflateSync(compressed as any);
+
     const nullByteIdx = uncompressed.indexOf(0);
     if (nullByteIdx === -1) {
       exit(new Error("Invalid object format"));
     }
 
+    // tree <size> \0 <actual data>
+    // blog <size> \0 <actual data>
+    // commit <size> \0 <actual data>
     const header = uncompressed.subarray(0, nullByteIdx).toString();
     const [type] = header.split(" ");
 
@@ -94,7 +99,7 @@ export class LsTreeCommand implements LsTreeCommandIntern {
         print(filename);
       } else {
         const entryType = this.getObjectType(shaHex);
-        print(`${mode} ${entryType} ${shaHex}\t${filename}`);
+        print(`${mode.padStart(6, "0")} ${entryType} ${shaHex}\t${filename}`);
       }
     }
   }

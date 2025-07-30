@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import { GitClient, Commands } from "./git"
-import { CatFileCommand, HashObjectCommand, LsTreeCommand } from './git/commands';
+import { CatFileCommand, HashObjectCommand, LsTreeCommand, UpdateIndexCommand, WriteTreeCommand } from './git/commands';
 import path from 'path';
 
 const args = process.argv.slice(2);
@@ -27,6 +27,12 @@ switch (command) {
     case Commands.LsTree:
         gitClient.readTree(new LsTreeCommand(args[1], args[2]));
         break;
+    case Commands.UpdateIndex:
+        gitClient.updateIndex(new UpdateIndexCommand(args[1]));
+        break;
+    case Commands.WriteTree:
+        gitClient.writeTree(new WriteTreeCommand(process.cwd()));
+        break;
     default:
         process.stdout.write(`Unknown command ${command}`);
-}
+}        
