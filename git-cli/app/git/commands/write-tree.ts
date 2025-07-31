@@ -2,14 +2,13 @@ import path from "path";
 import crypto from "crypto";
 import zlib from "zlib";
 import { readdir } from "node:fs/promises";
-import { statSync } from "node:fs";
 import { print } from ".";
 
 export interface WriteTreeCommandIntern {
   execute: () => Promise<void>;
 }
 
-class WriteTreeCommand implements WriteTreeCommandIntern {
+export class WriteTreeCommand implements WriteTreeCommandIntern {
   private readonly currentDir: string;
 
   constructor(currentDir: string) {
@@ -79,5 +78,3 @@ class WriteTreeCommand implements WriteTreeCommandIntern {
     print(treeId);
   }
 }
-
-export { WriteTreeCommand };

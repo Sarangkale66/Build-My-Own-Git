@@ -1,4 +1,4 @@
-import type { CatFileCommandIntern, HashObjectCommandIntern, LsTreeCommandIntern, UpdateIndexCommandIntern, WriteTreeCommandIntern } from "./commands"
+import type { CatFileCommandIntern, CommitTreeCommandIntern, HashObjectCommandIntern, LsTreeCommandIntern, UpdateIndexCommandIntern, WriteTreeCommandIntern } from "./commands"
 import fs from "fs";
 
 export enum Commands {
@@ -8,6 +8,7 @@ export enum Commands {
   LsTree = "ls-tree",
   UpdateIndex = "update-index",
   WriteTree = "write-tree",
+  CommitTree = "commit-tree",
 }
 
 interface GitClientIntern {
@@ -17,6 +18,7 @@ interface GitClientIntern {
   readTree: (command: LsTreeCommandIntern) => void;
   updateIndex: (command: UpdateIndexCommandIntern) => void;
   writeTree: (command: WriteTreeCommandIntern) => void;
+  commitTree: (command: CommitTreeCommandIntern) => void;
 }
 
 export class GitClient implements GitClientIntern {
@@ -46,6 +48,10 @@ export class GitClient implements GitClientIntern {
   }
 
   writeTree(command: WriteTreeCommandIntern): void {
+    command.execute();
+  }
+
+  commitTree(command: CommitTreeCommandIntern): void {
     command.execute();
   }
 }

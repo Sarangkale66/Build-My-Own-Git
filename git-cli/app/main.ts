@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import { GitClient, Commands } from "./git"
-import { CatFileCommand, HashObjectCommand, LsTreeCommand, UpdateIndexCommand, WriteTreeCommand } from './git/commands';
+import { CatFileCommand, CommitTreeCommand, exit, HashObjectCommand, LsTreeCommand, UpdateIndexCommand, WriteTreeCommand } from './git/commands';
 import path from 'path';
 
 const args = process.argv.slice(2);
@@ -13,8 +13,7 @@ if (Commands.Init === command) {
 }
 
 if (!fs.existsSync(path.join(process.cwd(), ".git"))) {
-    process.stdout.write("git not initialize yet!");
-    process.exit();
+    exit(new Error("git not initialize yet!"));
 }
 
 switch (command) {
@@ -28,11 +27,14 @@ switch (command) {
         gitClient.readTree(new LsTreeCommand(args[1], args[2]));
         break;
     case Commands.UpdateIndex:
-        gitClient.updateIndex(new UpdateIndexCommand(args[1]));
+        gitClient.updateIndex(new UpdateIndexCommand(args[1], args[2]));
         break;
     case Commands.WriteTree:
         gitClient.writeTree(new WriteTreeCommand(process.cwd()));
         break;
+    case Commands.CommitTree:
+        gitClient.commitTree(new CommitTreeCommand(args[2], args[4]));
+        break;
     default:
-        process.stdout.write(`Unknown command ${command}`);
-}        
+        exit(new Error(`Unknown command ${command}`));
+}

@@ -3,6 +3,7 @@ export * from "./hash-object"
 export * from "./ls-tree";
 export * from "./update-index";
 export * from "./write-tree";
+export * from "./commit-tree";
 
 export const NULL_BYTE = "\0";
 

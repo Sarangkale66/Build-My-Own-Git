@@ -14,12 +14,16 @@ _Learn Git Internals by Building Your Own Git from Scratch_
 
 ## 📦 Built With
 
-![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat&logo=typescript&logoColor=white)
-![Node.js](https://img.shields.io/badge/Node.js-339933?style=flat&logo=node.js&logoColor=white)
-![Bun](https://img.shields.io/badge/Bun-000000?style=flat&logo=bun&logoColor=white)
-![zlib](https://img.shields.io/badge/zlib-compression-ff69b4?style=flat)
-![Git](https://img.shields.io/badge/Git-000000?style=flat&logo=git&logoColor=white)
-![Shell Script](https://img.shields.io/badge/Shell-121011?style=flat&logo=gnu-bash&logoColor=white)
+<div align="center">
+
+  ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat&logo=typescript&logoColor=white)
+  ![Node.js](https://img.shields.io/badge/Node.js-339933?style=flat&logo=node.js&logoColor=white)
+  ![Bun](https://img.shields.io/badge/Bun-000000?style=flat&logo=bun&logoColor=white)
+  ![zlib](https://img.shields.io/badge/zlib-compression-ff69b4?style=flat)
+  ![Git](https://img.shields.io/badge/Git-000000?style=flat&logo=git&logoColor=white)
+  ![Shell Script](https://img.shields.io/badge/Shell-121011?style=flat&logo=gnu-bash&logoColor=white)
+
+</div>
 
 ---
 
