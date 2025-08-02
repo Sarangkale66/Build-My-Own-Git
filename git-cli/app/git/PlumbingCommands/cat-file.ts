@@ -4,7 +4,7 @@ import zlib from "zlib";
 import { NULL_BYTE, print, exit } from ".";
 
 export interface CatFileCommandIntern {
-  execute: () => void;
+  execute: () => string;
 }
 
 export class CatFileCommand implements CatFileCommandIntern {
@@ -16,33 +16,31 @@ export class CatFileCommand implements CatFileCommandIntern {
     this.commitSHA = commitSHA;
   }
 
-  execute(): void {
+  execute(): string {
     const flag = this.flag;
     const commitSHA = this.commitSHA;
 
-    switch (flag) {
-      case "-p":
-        const folder = commitSHA.slice(0, 2);
-        const file = commitSHA.slice(2);
-        const objectPath = path.join(process.cwd(), ".git", "objects", folder, file);
+    if (flag === "-p") {
+      const folder = commitSHA.slice(0, 2);
+      const file = commitSHA.slice(2);
+      const objectPath = path.join(process.cwd(), ".git", "objects", folder, file);
 
-        if (!fs.existsSync(objectPath)) {
-          exit(new Error(`fatal: Not a valid object name ${commitSHA}`));
-        }
+      if (!fs.existsSync(objectPath)) {
+        exit(new Error(`fatal: Not a valid object name ${commitSHA}`));
+      }
 
-        const fileContent = fs.readFileSync(objectPath);
-        const decompressed = zlib.unzipSync(new Uint8Array(fileContent));
-        const nullIndex = decompressed.indexOf(NULL_BYTE);
+      const fileContent = fs.readFileSync(objectPath);
+      const decompressed = zlib.unzipSync(new Uint8Array(fileContent));
+      const nullIndex = decompressed.indexOf(NULL_BYTE);
 
-        if (nullIndex === -1) {
-          exit(new Error(`Invalid object format for ${commitSHA}`));
-        }
+      if (nullIndex === -1) {
+        exit(new Error(`Invalid object format for ${commitSHA}`));
+      }
 
-        const blobContent = decompressed.subarray(nullIndex + 1).toString();
-        print(blobContent);
-        break;
-      default:
-        exit(new Error(`Unknown flag ${flag}`));
+      const blobContent = decompressed.subarray(nullIndex + 1).toString();
+      print(blobContent);
+      return blobContent;
     }
+    exit(new Error("Not valid flag try '-p' after cat-file"))
   }
 }

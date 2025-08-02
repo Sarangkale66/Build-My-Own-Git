@@ -22,7 +22,6 @@ interface GitClientIntern {
   init: () => void;
 }
 
-
 export class GitClient implements GitClientIntern {
 
   init() {
@@ -33,8 +32,8 @@ export class GitClient implements GitClientIntern {
     process.stdout.write("Initialized git directory");
   }
 
-  run(command: CommandType): void {
-    command.execute();
+  run(command: CommandType): any {
+    return command.execute();
   }
 
 }
