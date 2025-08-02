@@ -5,7 +5,7 @@ import { readdir } from "node:fs/promises";
 import { print } from ".";
 
 export interface WriteTreeCommandIntern {
-  execute: () => Promise<void>;
+  execute: () => Promise<string>;
 }
 
 export class WriteTreeCommand implements WriteTreeCommandIntern {
@@ -34,7 +34,7 @@ export class WriteTreeCommand implements WriteTreeCommandIntern {
     return key;
   }
 
-  public async execute(): Promise<void> {
+  public async execute(): Promise<string> {
     const writeTree = async (currentDir: string): Promise<string> => {
       const files = (await readdir(currentDir, { withFileTypes: true }))
         .filter(entry => entry.name !== ".git");
@@ -76,5 +76,6 @@ export class WriteTreeCommand implements WriteTreeCommandIntern {
 
     const treeId = await writeTree(this.currentDir);
     print(treeId);
+    return treeId;
   }
 }

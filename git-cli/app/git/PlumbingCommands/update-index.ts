@@ -12,7 +12,7 @@ export class UpdateIndexCommand {
   private readonly filename: string;
   private readonly flag: string;
 
-  constructor(flag: string, filename: string) {
+  constructor(flag: string = "", filename: string) {
     this.filename = filename;
     this.flag = flag;
   }
@@ -24,7 +24,7 @@ export class UpdateIndexCommand {
 
     if (flag === "--remove") {
       remove = true;
-    } else {
+    } else if (!filename && flag) {
       filename = flag;
     }
 

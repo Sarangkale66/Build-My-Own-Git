@@ -1,11 +1,12 @@
 import * as fs from 'fs';
-import { GitClient, Commands } from "./git"
-import { CatFileCommand, CommitTreeCommand, exit, HashObjectCommand, LsTreeCommand, UpdateIndexCommand, WriteTreeCommand } from './git/commands';
+import { Commands } from "./git"
+import { CatFileCommand, CommitTreeCommand, exit, gitClient, HashObjectCommand, LsTreeCommand, UpdateIndexCommand, WriteTreeCommand } from './git/PlumbingCommands';
 import path from 'path';
+import { AddCommand, CommitCommand, StatusCommand } from './git/PorcelainCommands';
+import { LogCommand } from './git/PorcelainCommands/log';
 
 const args = process.argv.slice(2);
 const command = args[0];
-const gitClient = new GitClient();
 
 if (Commands.Init === command) {
     gitClient.init();
@@ -21,19 +22,31 @@ switch (command) {
         gitClient.run(new CatFileCommand(args[1], args[2]));
         break;
     case Commands.HashObject:
-        gitClient.hash(new HashObjectCommand(args[1], args[2]));
+        gitClient.run(new HashObjectCommand(args[1], args[2]));
         break;
     case Commands.LsTree:
-        gitClient.readTree(new LsTreeCommand(args[1], args[2]));
+        gitClient.run(new LsTreeCommand(args[1], args[2]));
         break;
     case Commands.UpdateIndex:
-        gitClient.updateIndex(new UpdateIndexCommand(args[1], args[2]));
+        gitClient.run(new UpdateIndexCommand(args[1], args[2]));
         break;
     case Commands.WriteTree:
-        gitClient.writeTree(new WriteTreeCommand(process.cwd()));
+        gitClient.run(new WriteTreeCommand(process.cwd()));
         break;
     case Commands.CommitTree:
-        gitClient.commitTree(new CommitTreeCommand(args[2], args[4]));
+        gitClient.run(new CommitTreeCommand(args[2], args[4]));
+        break;
+    case Commands.GitAdd:
+        gitClient.run(new AddCommand(args[1]));
+        break;
+    case Commands.GitStatus:
+        gitClient.run(new StatusCommand());
+        break;
+    case Commands.Commit:
+        gitClient.run(new CommitCommand(args[2]));
+        break;
+    case Commands.Log:
+        gitClient.run(new LogCommand());
         break;
     default:
         exit(new Error(`Unknown command ${command}`));

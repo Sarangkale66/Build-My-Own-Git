@@ -1,5 +1,6 @@
-import type { CatFileCommandIntern, CommitTreeCommandIntern, HashObjectCommandIntern, LsTreeCommandIntern, UpdateIndexCommandIntern, WriteTreeCommandIntern } from "./commands"
 import fs from "fs";
+import type { AddCommandIntern, StatusCommandIntern, CommitCommandIntern, LogCommandIntern } from "./PorcelainCommands";
+import type { CatFileCommandIntern, CommitTreeCommandIntern, HashObjectCommandIntern, LsTreeCommandIntern, UpdateIndexCommandIntern, WriteTreeCommandIntern } from "./PlumbingCommands"
 
 export enum Commands {
   Init = "init",
@@ -9,17 +10,18 @@ export enum Commands {
   UpdateIndex = "update-index",
   WriteTree = "write-tree",
   CommitTree = "commit-tree",
+  GitAdd = "add",
+  GitStatus = "status",
+  Commit = "commit",
+  Log = "log",
 }
+
+type CommandType = AddCommandIntern | CatFileCommandIntern | HashObjectCommandIntern | LsTreeCommandIntern | UpdateIndexCommandIntern | WriteTreeCommandIntern | CommitTreeCommandIntern | StatusCommandIntern | CommitCommandIntern | LogCommandIntern;
 
 interface GitClientIntern {
   init: () => void;
-  run: (command: CatFileCommandIntern) => void;
-  hash: (command: HashObjectCommandIntern) => void;
-  readTree: (command: LsTreeCommandIntern) => void;
-  updateIndex: (command: UpdateIndexCommandIntern) => void;
-  writeTree: (command: WriteTreeCommandIntern) => void;
-  commitTree: (command: CommitTreeCommandIntern) => void;
 }
+
 
 export class GitClient implements GitClientIntern {
 
@@ -27,31 +29,12 @@ export class GitClient implements GitClientIntern {
     fs.mkdirSync(".git", { recursive: true });
     fs.mkdirSync(".git/objects", { recursive: true });
     fs.mkdirSync(".git/refs", { recursive: true });
-    fs.writeFileSync(".git/HEAD", "ref: refs/heads/main\n");
+    fs.writeFileSync(".git/HEAD", "ref: refs/heads/master\n");
     process.stdout.write("Initialized git directory");
   }
 
-  run(command: CatFileCommandIntern): void {
+  run(command: CommandType): void {
     command.execute();
   }
 
-  hash(command: HashObjectCommandIntern): void {
-    command.execute();
-  }
-
-  readTree(command: LsTreeCommandIntern): void {
-    command.execute();
-  }
-
-  updateIndex(command: UpdateIndexCommandIntern): void {
-    command.execute();
-  }
-
-  writeTree(command: WriteTreeCommandIntern): void {
-    command.execute();
-  }
-
-  commitTree(command: CommitTreeCommandIntern): void {
-    command.execute();
-  }
 }

@@ -1,9 +1,12 @@
+import { GitClient } from "..";
 export * from "./cat-file";
 export * from "./hash-object"
 export * from "./ls-tree";
 export * from "./update-index";
 export * from "./write-tree";
 export * from "./commit-tree";
+
+export const gitClient = new GitClient();
 
 export const NULL_BYTE = "\0";
 
