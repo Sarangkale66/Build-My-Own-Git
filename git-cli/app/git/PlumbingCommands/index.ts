@@ -5,6 +5,8 @@ export * from "./ls-tree";
 export * from "./update-index";
 export * from "./write-tree";
 export * from "./commit-tree";
+export * from "./diff";
+export * from "./compare-blobs"
 
 export const gitClient = new GitClient();
 

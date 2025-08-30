@@ -1,7 +1,7 @@
 import path from "path";
 import crypto from "crypto";
 import zlib from "zlib";
-import { print } from ".";
+import { print, exit } from ".";
 import { readdir, mkdir } from "fs/promises";
 import { existsSync } from "fs";
 
@@ -105,6 +105,7 @@ export class CommitTreeCommand implements CommitTreeCommandIntern {
   public async execute(): Promise<string> {
     const stagedPaths = await this.getStagedFilePaths();
     const treeSha = await this.writeTreeFromStagedFiles(process.cwd(), stagedPaths);
+    const refPath = path.join(".git", "refs", "heads", "master");
 
     const author = "Sarang <sarangkale66@gmail.com>";
     const timestamp = Math.floor(Date.now() / 1000);
@@ -131,7 +132,6 @@ export class CommitTreeCommand implements CommitTreeCommandIntern {
       await Bun.write(commitObjectPath, zlib.deflateSync(fullCommit) as any);
     }
 
-    const refPath = path.join(".git", "refs", "heads", "master");
     await Bun.write(refPath, commitSha + "\n");
 
     print(commitSha)

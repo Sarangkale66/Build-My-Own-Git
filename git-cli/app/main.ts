@@ -1,12 +1,17 @@
 import * as fs from 'fs';
 import { Commands } from "./git"
-import { CatFileCommand, CommitTreeCommand, exit, gitClient, HashObjectCommand, LsTreeCommand, UpdateIndexCommand, WriteTreeCommand } from './git/PlumbingCommands';
+import { CatFileCommand, CommitTreeCommand, CompareBlobsCommand, DiffCommand, exit, gitClient, HashObjectCommand, LsTreeCommand, UpdateIndexCommand, WriteTreeCommand } from './git/PlumbingCommands';
 import path from 'path';
-import { AddCommand, CommitCommand, StatusCommand } from './git/PorcelainCommands';
+import { AddCommand, CloneCommand, CommitCommand, StatusCommand } from './git/PorcelainCommands';
 import { LogCommand } from './git/PorcelainCommands/log';
 
 const args = process.argv.slice(2);
 const command = args[0];
+
+if (Commands.Clone === command) {
+    gitClient.run(new CloneCommand(args[1]));
+    process.exit();
+}
 
 if (Commands.Init === command) {
     gitClient.init();
@@ -47,6 +52,12 @@ switch (command) {
         break;
     case Commands.Log:
         gitClient.run(new LogCommand());
+        break;
+    case Commands.Diff:
+        gitClient.run(new DiffCommand(args[1], args.slice(2)));
+        break;
+    case Commands.CompareBlob:
+        gitClient.run(new CompareBlobsCommand(args[1], args[2]));
         break;
     default:
         exit(new Error(`Unknown command ${command}`));

@@ -1,6 +1,6 @@
 import fs from "fs";
 import type { AddCommandIntern, StatusCommandIntern, CommitCommandIntern, LogCommandIntern } from "./PorcelainCommands";
-import type { CatFileCommandIntern, CommitTreeCommandIntern, HashObjectCommandIntern, LsTreeCommandIntern, UpdateIndexCommandIntern, WriteTreeCommandIntern } from "./PlumbingCommands"
+import type { CatFileCommandIntern, CommitTreeCommandIntern, CompareBlobsCommandIntern, DiffCommandIntern, HashObjectCommandIntern, LsTreeCommandIntern, UpdateIndexCommandIntern, WriteTreeCommandIntern } from "./PlumbingCommands"
 
 export enum Commands {
   Init = "init",
@@ -14,9 +14,12 @@ export enum Commands {
   GitStatus = "status",
   Commit = "commit",
   Log = "log",
+  Diff = "diff",
+  CompareBlob = "compare-blobs",
+  Clone = "clone"
 }
 
-type CommandType = AddCommandIntern | CatFileCommandIntern | HashObjectCommandIntern | LsTreeCommandIntern | UpdateIndexCommandIntern | WriteTreeCommandIntern | CommitTreeCommandIntern | StatusCommandIntern | CommitCommandIntern | LogCommandIntern;
+type CommandType = AddCommandIntern | CatFileCommandIntern | HashObjectCommandIntern | LsTreeCommandIntern | UpdateIndexCommandIntern | WriteTreeCommandIntern | CommitTreeCommandIntern | StatusCommandIntern | CommitCommandIntern | LogCommandIntern | DiffCommandIntern | CompareBlobsCommandIntern;
 
 interface GitClientIntern {
   init: () => void;
