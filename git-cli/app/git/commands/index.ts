@@ -4,7 +4,8 @@ export * from "./hash-object"
 export enum Commands {
   Init = "init",
   CatFile = "cat-file",
-  HashObject = "hash-object"
+  HashObject = "hash-object",
+  Commit = "commit"
 }
 
 export const NULL_BYTE = "\0";

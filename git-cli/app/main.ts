@@ -5,6 +5,7 @@ import path from 'path';
 
 const args = process.argv.slice(2);
 const command = args[0];
+
 const gitClient = new GitClient();
 
 if (Commands.Init === command) {
@@ -18,10 +19,10 @@ if (!fs.existsSync(path.join(process.cwd(), ".git"))) {
 }
 
 switch (command) {
-    case Commands.CatFile:
+    case Commands.CatFile: // read compress data
         gitClient.run(new CatFileCommand(process.argv[3], process.argv[4]));
         break;
-    case Commands.HashObject:
+    case Commands.HashObject: // write compress data
         gitClient.hash(new HashObjectCommand(process.argv[3], process.argv[4]));
         break;
     default:
