@@ -1,0 +1,451 @@
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --font-size: 14px;
+  /* Light mode - using second image palette */
+  --background: #f8fafc;
+  --foreground: #1e293b;
+  --card: #ffffff;
+  --card-foreground: #1e293b;
+  --popover: #ffffff;
+  --popover-foreground: #1e293b;
+  --primary: #8b5cf6;
+  --primary-foreground: #ffffff;
+  --secondary: #dbeafe;
+  --secondary-foreground: #1e40af;
+  --muted: #f1f5f9;
+  --muted-foreground: #64748b;
+  --accent: #c4b5fd;
+  --accent-foreground: #5b21b6;
+  --destructive: #dc2626;
+  --destructive-foreground: #ffffff;
+  --border: #e2e8f0;
+  --input: transparent;
+  --input-background: #ffffff;
+  --switch-background: #cbd5e1;
+  --font-weight-medium: 500;
+  --font-weight-normal: 400;
+  --ring: #8b5cf6;
+  /* Custom button colors */
+  --button-primary: #8b5cf6;
+  --button-primary-hover: #7c3aed;
+  --button-primary-foreground: #ffffff;
+  --button-secondary: #dbeafe;
+  --button-secondary-hover: #bfdbfe;
+  --button-secondary-foreground: #1e40af;
+  --button-ghost: transparent;
+  --button-ghost-hover: #f1f5f9;
+  --button-ghost-foreground: #64748b;
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --radius: 0.625rem;
+  --sidebar: #ffffff;
+  --sidebar-foreground: #1e293b;
+  --sidebar-primary: #8b5cf6;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #f1f5f9;
+  --sidebar-accent-foreground: #475569;
+  --sidebar-border: #e2e8f0;
+  --sidebar-ring: #8b5cf6;
+}
+
+.dark {
+  /* Dark mode - using first image palette */
+  --background: #1e293b;
+  --foreground: #f1f5f9;
+  --card: #334155;
+  --card-foreground: #f1f5f9;
+  --popover: #334155;
+  --popover-foreground: #f1f5f9;
+  --primary: #94a3b8;
+  --primary-foreground: #1e293b;
+  --secondary: #475569;
+  --secondary-foreground: #e2e8f0;
+  --muted: #475569;
+  --muted-foreground: #94a3b8;
+  --accent: #64748b;
+  --accent-foreground: #f1f5f9;
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
+  --border: #475569;
+  --input: #334155;
+  --ring: #94a3b8;
+  /* Custom button colors for dark mode */
+  --button-primary: #94a3b8;
+  --button-primary-hover: #cbd5e1;
+  --button-primary-foreground: #1e293b;
+  --button-secondary: #475569;
+  --button-secondary-hover: #64748b;
+  --button-secondary-foreground: #e2e8f0;
+  --button-ghost: transparent;
+  --button-ghost-hover: #334155;
+  --button-ghost-foreground: #94a3b8;
+  --font-weight-medium: 500;
+  --font-weight-normal: 400;
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
+  --sidebar: #334155;
+  --sidebar-foreground: #f1f5f9;
+  --sidebar-primary: #94a3b8;
+  --sidebar-primary-foreground: #1e293b;
+  --sidebar-accent: #475569;
+  --sidebar-accent-foreground: #e2e8f0;
+  --sidebar-border: #475569;
+  --sidebar-ring: #94a3b8;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-input-background: var(--input-background);
+  --color-switch-background: var(--switch-background);
+  --color-ring: var(--ring);
+  --color-button-primary: var(--button-primary);
+  --color-button-primary-hover: var(--button-primary-hover);
+  --color-button-primary-foreground: var(--button-primary-foreground);
+  --color-button-secondary: var(--button-secondary);
+  --color-button-secondary-hover: var(--button-secondary-hover);
+  --color-button-secondary-foreground: var(--button-secondary-foreground);
+  --color-button-ghost: var(--button-ghost);
+  --color-button-ghost-hover: var(--button-ghost-hover);
+  --color-button-ghost-foreground: var(--button-ghost-foreground);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+  }
+}
+
+/**
+ * Base typography. This is not applied to elements which have an ancestor with a Tailwind text class.
+ */
+@layer base {
+  :where(:not(:has([class*=" text-"]), :not(:has([class^="text-"])))) {
+    h1 {
+      font-size: var(--text-2xl);
+      font-weight: var(--font-weight-medium);
+      line-height: 1.5;
+    }
+
+    h2 {
+      font-size: var(--text-xl);
+      font-weight: var(--font-weight-medium);
+      line-height: 1.5;
+    }
+
+    h3 {
+      font-size: var(--text-lg);
+      font-weight: var(--font-weight-medium);
+      line-height: 1.5;
+    }
+
+    h4 {
+      font-size: var(--text-base);
+      font-weight: var(--font-weight-medium);
+      line-height: 1.5;
+    }
+
+    p {
+      font-size: var(--text-base);
+      font-weight: var(--font-weight-normal);
+      line-height: 1.5;
+    }
+
+    label {
+      font-size: var(--text-base);
+      font-weight: var(--font-weight-medium);
+      line-height: 1.5;
+    }
+
+    button {
+      font-size: var(--text-base);
+      font-weight: var(--font-weight-medium);
+      line-height: 1.5;
+    }
+
+    input {
+      font-size: var(--text-base);
+      font-weight: var(--font-weight-normal);
+      line-height: 1.5;
+    }
+  }
+}
+
+html {
+  font-size: var(--font-size);
+}
+
+/* Import modern professional fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* Custom Color Palette Design System */
+@layer utilities {
+  /* Glassmorphism with new color palette */
+  .glassmorphism {
+    background: rgba(248, 250, 252, 0.95);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(226, 232, 240, 0.8);
+    box-shadow: 
+      0 0 0 1px rgba(255, 255, 255, 0.9),
+      0 1px 3px rgba(30, 41, 59, 0.08),
+      0 4px 12px rgba(30, 41, 59, 0.04);
+  }
+  
+  .dark .glassmorphism {
+    background: rgba(51, 65, 85, 0.95);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(71, 85, 105, 0.8);
+    box-shadow: 
+      0 0 0 1px rgba(148, 163, 184, 0.1),
+      0 1px 3px rgba(0, 0, 0, 0.3),
+      0 4px 12px rgba(0, 0, 0, 0.5);
+  }
+  
+  .glass-card {
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(226, 232, 240, 0.6);
+    box-shadow: 0 1px 3px rgba(30, 41, 59, 0.06);
+  }
+  
+  .dark .glass-card {
+    background: rgba(71, 85, 105, 0.8);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(100, 116, 139, 0.4);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+  }
+  
+  /* Custom Button Styles */
+  
+  /* Primary Button */
+  .btn-primary {
+    background: var(--button-primary);
+    color: var(--button-primary-foreground);
+    border: 1px solid transparent;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-weight: 500;
+    font-size: 14px;
+    letter-spacing: -0.01em;
+    transition: all 0.2s ease-out;
+    box-shadow: 
+      0 1px 3px rgba(139, 92, 246, 0.2),
+      0 4px 12px rgba(139, 92, 246, 0.1);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  
+  .btn-primary:hover {
+    background: var(--button-primary-hover);
+    transform: translateY(-1px);
+    box-shadow: 
+      0 2px 8px rgba(139, 92, 246, 0.25),
+      0 8px 24px rgba(139, 92, 246, 0.15);
+  }
+  
+  .btn-primary:active {
+    transform: translateY(0);
+    transition: all 0.1s ease-out;
+  }
+  
+  /* Secondary Button */
+  .btn-secondary {
+    background: var(--button-secondary);
+    color: var(--button-secondary-foreground);
+    border: 1px solid rgba(30, 64, 175, 0.2);
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-weight: 500;
+    font-size: 14px;
+    letter-spacing: -0.01em;
+    transition: all 0.2s ease-out;
+    box-shadow: 0 1px 3px rgba(219, 234, 254, 0.3);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  
+  .btn-secondary:hover {
+    background: var(--button-secondary-hover);
+    transform: translateY(-1px);
+    box-shadow: 
+      0 2px 8px rgba(30, 64, 175, 0.15),
+      0 8px 24px rgba(30, 64, 175, 0.08);
+  }
+  
+  .btn-secondary:active {
+    transform: translateY(0);
+    transition: all 0.1s ease-out;
+  }
+  
+  /* Ghost Button */
+  .btn-ghost {
+    background: var(--button-ghost);
+    color: var(--button-ghost-foreground);
+    border: 1px solid transparent;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-weight: 500;
+    font-size: 14px;
+    letter-spacing: -0.01em;
+    transition: all 0.2s ease-out;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  
+  .btn-ghost:hover {
+    background: var(--button-ghost-hover);
+    color: var(--foreground);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(100, 116, 139, 0.1);
+  }
+  
+  .btn-ghost:active {
+    transform: translateY(0);
+    transition: all 0.1s ease-out;
+  }
+  
+  /* Small Button Variant */
+  .btn-sm {
+    padding: 6px 12px;
+    font-size: 12px;
+    border-radius: 6px;
+  }
+  
+  /* Large Button Variant */
+  .btn-lg {
+    padding: 12px 24px;
+    font-size: 16px;
+    border-radius: 10px;
+  }
+  
+  /* Icon Button */
+  .btn-icon {
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .btn-icon.btn-sm {
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+  }
+  
+  /* Outline Button */
+  .btn-outline {
+    background: transparent;
+    color: var(--primary);
+    border: 1px solid var(--primary);
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-weight: 500;
+    font-size: 14px;
+    letter-spacing: -0.01em;
+    transition: all 0.2s ease-out;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  
+  .btn-outline:hover {
+    background: var(--primary);
+    color: var(--primary-foreground);
+    transform: translateY(-1px);
+    box-shadow: 
+      0 2px 8px rgba(139, 92, 246, 0.2),
+      0 8px 24px rgba(139, 92, 246, 0.1);
+  }
+  
+  .btn-outline:active {
+    transform: translateY(0);
+    transition: all 0.1s ease-out;
+  }
+  
+  /* Figma-style hover effects */
+  .figma-hover {
+    transition: all 0.15s ease-out;
+  }
+  
+  .figma-hover:hover {
+    transform: translateY(-1px);
+    box-shadow: 
+      0 2px 8px rgba(100, 116, 139, 0.12),
+      0 8px 24px rgba(100, 116, 139, 0.08);
+  }
+  
+  .dark .figma-hover:hover {
+    box-shadow: 
+      0 2px 8px rgba(0, 0, 0, 0.4),
+      0 8px 24px rgba(0, 0, 0, 0.6);
+  }
+  
+  .figma-hover:active {
+    transform: translateY(0px);
+    transition: all 0.1s ease-out;
+  }
+  
+  .text-balance {
+    text-wrap: balance;
+  }
+}
