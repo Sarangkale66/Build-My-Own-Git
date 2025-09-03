@@ -17,10 +17,6 @@ const connectDB = async () => {
     console.log(`📊 Database: ${connection.connection.name}`);
     console.log(`🌐 Host: ${connection.connection.host}:${connection.connection.port}`);
 
-    if (process.env.NODE_ENV === 'development') {
-      console.log(`🏊‍♂️ Connection Pool - Max: ${connectionOptions.maxPoolSize}, Min: ${connectionOptions.minPoolSize}`);
-    }
-
     return connection;
 
   } catch (error) {
