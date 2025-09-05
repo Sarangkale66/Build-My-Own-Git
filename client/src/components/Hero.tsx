@@ -50,7 +50,11 @@ const statItemVariants = {
   }
 };
 
-export function Hero() {
+interface HeroProps {
+  onGetStarted?: () => void;
+}
+
+export function Hero({ onGetStarted }: HeroProps) {
   return (
     <section className="min-h-screen flex items-center justify-center px-6 pt-20">
       <motion.div 
@@ -84,6 +88,7 @@ export function Hero() {
         >
           <motion.button 
             className="btn-primary btn-lg"
+            onClick={onGetStarted}
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
           >

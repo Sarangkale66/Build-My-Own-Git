@@ -41,7 +41,11 @@ const logoVariants = {
   }
 };
 
-export function Navbar() {
+interface NavbarProps {
+  onAuthClick?: () => void;
+}
+
+export function Navbar({ onAuthClick }: NavbarProps) {
   return (
     <motion.nav 
       className="fixed top-0 left-0 right-0 z-50 glassmorphism"
@@ -97,6 +101,7 @@ export function Navbar() {
             <ThemeToggle />
             <motion.button 
               className="btn-ghost btn-sm"
+              onClick={onAuthClick}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
@@ -104,6 +109,7 @@ export function Navbar() {
             </motion.button>
             <motion.button 
               className="btn-primary btn-sm"
+              onClick={onAuthClick}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
