@@ -71,8 +71,7 @@ export function Auth({ onBack }: AuthProps) {
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
-      {/* Header */}
-      <motion.header 
+      <motion.header
         className="glassmorphism border-b"
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -82,7 +81,7 @@ export function Auth({ onBack }: AuthProps) {
           <div className="flex items-center justify-between h-14">
             <div className="flex items-center space-x-4">
               {onBack && (
-                <motion.button 
+                <motion.button
                   onClick={onBack}
                   className="btn-ghost btn-icon btn-sm"
                   whileHover={{ scale: 1.1 }}
@@ -92,7 +91,7 @@ export function Auth({ onBack }: AuthProps) {
                 </motion.button>
               )}
               <div className="flex items-center space-x-2">
-                <motion.div 
+                <motion.div
                   className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center"
                   variants={logoVariants}
                   initial="hidden"
@@ -112,28 +111,27 @@ export function Auth({ onBack }: AuthProps) {
 
       {/* Main Content */}
       <div className="flex-1 flex items-center justify-center px-6 py-12">
-        <motion.div 
+        <motion.div
           className="w-full max-w-md"
           variants={containerVariants}
           initial="hidden"
           animate="visible"
         >
           {/* Auth Card */}
-          <motion.div 
+          <motion.div
             className="glassmorphism p-8 rounded-2xl"
             variants={itemVariants}
           >
             {/* Tab Switcher */}
-            <motion.div 
+            <motion.div
               className="flex bg-muted rounded-lg p-1 mb-8"
               variants={itemVariants}
             >
               <motion.button
-                className={`flex-1 py-2 px-4 rounded-md transition-all duration-200 ${
-                  isLogin 
-                    ? 'bg-primary text-primary-foreground shadow-sm' 
+                className={`flex-1 py-2 px-4 rounded-md transition-all duration-200 ${isLogin
+                    ? 'bg-primary text-primary-foreground shadow-sm'
                     : 'text-muted-foreground hover:text-foreground'
-                }`}
+                  }`}
                 onClick={() => setIsLogin(true)}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
@@ -141,11 +139,10 @@ export function Auth({ onBack }: AuthProps) {
                 Sign In
               </motion.button>
               <motion.button
-                className={`flex-1 py-2 px-4 rounded-md transition-all duration-200 ${
-                  !isLogin 
-                    ? 'bg-primary text-primary-foreground shadow-sm' 
+                className={`flex-1 py-2 px-4 rounded-md transition-all duration-200 ${!isLogin
+                    ? 'bg-primary text-primary-foreground shadow-sm'
                     : 'text-muted-foreground hover:text-foreground'
-                }`}
+                  }`}
                 onClick={() => setIsLogin(false)}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
@@ -160,8 +157,8 @@ export function Auth({ onBack }: AuthProps) {
                 {isLogin ? 'Welcome back' : 'Create your account'}
               </h1>
               <p className="text-muted-foreground">
-                {isLogin 
-                  ? 'Sign in to your CodeSync account' 
+                {isLogin
+                  ? 'Sign in to your CodeSync account'
                   : 'Join thousands of developers on CodeSync'
                 }
               </p>
@@ -169,7 +166,7 @@ export function Auth({ onBack }: AuthProps) {
 
             {/* Social Login Buttons */}
             <motion.div className="space-y-3 mb-6" variants={itemVariants}>
-              <motion.button 
+              <motion.button
                 className="w-full flex items-center justify-center gap-3 py-3 px-4 border border-border rounded-lg hover:bg-accent/50 transition-all duration-200"
                 whileHover={{ scale: 1.02, y: -1 }}
                 whileTap={{ scale: 0.98 }}
@@ -177,24 +174,24 @@ export function Auth({ onBack }: AuthProps) {
                 <Github className="h-5 w-5" />
                 <span>Continue with GitHub</span>
               </motion.button>
-              
-              <motion.button 
+
+              <motion.button
                 className="w-full flex items-center justify-center gap-3 py-3 px-4 border border-border rounded-lg hover:bg-accent/50 transition-all duration-200"
                 whileHover={{ scale: 1.02, y: -1 }}
                 whileTap={{ scale: 0.98 }}
               >
                 <svg className="h-5 w-5" viewBox="0 0 24 24">
-                  <path fill="currentColor" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-                  <path fill="currentColor" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-                  <path fill="currentColor" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
-                  <path fill="currentColor" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                  <path fill="currentColor" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
+                  <path fill="currentColor" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
+                  <path fill="currentColor" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" />
+                  <path fill="currentColor" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" />
                 </svg>
                 <span>Continue with Google</span>
               </motion.button>
             </motion.div>
 
             {/* Divider */}
-            <motion.div 
+            <motion.div
               className="relative flex items-center justify-center mb-6"
               variants={itemVariants}
             >
@@ -204,7 +201,7 @@ export function Auth({ onBack }: AuthProps) {
 
             {/* Form */}
             <AnimatePresence mode="wait">
-              <motion.form 
+              <motion.form
                 key={isLogin ? 'login' : 'signup'}
                 className="space-y-4"
                 variants={formVariants}
@@ -265,19 +262,19 @@ export function Auth({ onBack }: AuthProps) {
                 )}
 
                 {isLogin && (
-                  <motion.div 
+                  <motion.div
                     className="flex items-center justify-between"
                     variants={itemVariants}
                   >
                     <label className="flex items-center cursor-pointer">
-                      <input 
-                        type="checkbox" 
-                        className="w-4 h-4 text-primary border-border rounded focus:ring-ring focus:ring-2 mr-2" 
+                      <input
+                        type="checkbox"
+                        className="w-4 h-4 text-primary border-border rounded focus:ring-ring focus:ring-2 mr-2"
                       />
                       <span className="text-sm text-muted-foreground">Remember me</span>
                     </label>
-                    <motion.a 
-                      href="#" 
+                    <motion.a
+                      href="#"
                       className="text-sm text-primary hover:underline"
                       whileHover={{ scale: 1.05 }}
                     >
@@ -289,22 +286,22 @@ export function Auth({ onBack }: AuthProps) {
                 {!isLogin && (
                   <motion.div variants={itemVariants}>
                     <label className="flex items-start gap-2 cursor-pointer">
-                      <input 
-                        type="checkbox" 
-                        className="w-4 h-4 text-primary border-border rounded focus:ring-ring focus:ring-2 mt-1" 
+                      <input
+                        type="checkbox"
+                        className="w-4 h-4 text-primary border-border rounded focus:ring-ring focus:ring-2 mt-1"
                       />
                       <span className="text-sm text-muted-foreground">
                         I agree to the{' '}
-                        <motion.a 
-                          href="#" 
+                        <motion.a
+                          href="#"
                           className="text-primary hover:underline"
                           whileHover={{ scale: 1.05 }}
                         >
                           Terms of Service
                         </motion.a>
                         {' '}and{' '}
-                        <motion.a 
-                          href="#" 
+                        <motion.a
+                          href="#"
                           className="text-primary hover:underline"
                           whileHover={{ scale: 1.05 }}
                         >
@@ -315,7 +312,7 @@ export function Auth({ onBack }: AuthProps) {
                   </motion.div>
                 )}
 
-                <motion.button 
+                <motion.button
                   type="submit"
                   className="w-full btn-primary btn-lg mt-6"
                   variants={itemVariants}
@@ -328,14 +325,14 @@ export function Auth({ onBack }: AuthProps) {
             </AnimatePresence>
 
             {/* Footer Text */}
-            <motion.div 
+            <motion.div
               className="mt-6 text-center text-sm text-muted-foreground"
               variants={itemVariants}
             >
               {isLogin ? (
                 <>
                   Don't have an account?{' '}
-                  <motion.button 
+                  <motion.button
                     onClick={() => setIsLogin(false)}
                     className="text-primary hover:underline font-medium"
                     whileHover={{ scale: 1.05 }}
@@ -346,7 +343,7 @@ export function Auth({ onBack }: AuthProps) {
               ) : (
                 <>
                   Already have an account?{' '}
-                  <motion.button 
+                  <motion.button
                     onClick={() => setIsLogin(true)}
                     className="text-primary hover:underline font-medium"
                     whileHover={{ scale: 1.05 }}
@@ -359,7 +356,7 @@ export function Auth({ onBack }: AuthProps) {
           </motion.div>
 
           {/* Additional Info */}
-          <motion.div 
+          <motion.div
             className="mt-8 text-center text-xs text-muted-foreground"
             variants={itemVariants}
           >
